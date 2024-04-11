@@ -32,13 +32,10 @@ thread = sniffing_thread()
 
 def scraping():
     while True:
-        logger.info("Waiting three seconds...")
         sleep(3)
-
         logger.info("Fetching recorded orders...")
         orders = thread.get_data()
 
-        logger.info("Obtained %s orders", orders.__len__())
         # for order in orders:
         #    logger.info(",".join(list(map(str, order.data)))+"\n")
 
