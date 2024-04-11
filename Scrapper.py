@@ -37,6 +37,8 @@ def main():
                 logger.info("Obtained %s orders", orders.__len__())
                  # for order in orders:
                  #    logger.info(",".join(list(map(str, order.data)))+"\n")
+    except KeyboardInterrupt:
+        pass
     except Exception as e:
         logger.error(e.with_traceback())
     finally:
