@@ -54,6 +54,6 @@ if __name__ == '__main__':
         logger.error(e.with_traceback())
     finally:
         thread.stop()
-        logger.info("Sniffing Thread stopped!")
+        thread.join()
         logger.info("Stopped Albion-Packet-Scrapper after %f", timer() - start_time)
 
