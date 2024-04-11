@@ -36,8 +36,8 @@ def main():
                 orders = thread.get_data()
 
                 logger.info("Obtained %s orders", orders.__len__())
-                # for order in orders:
-                    # logger.info(",".join(list(map(str, order.data)))+"\n")
+                for order in orders:
+                    logger.info(",".join(list(map(str, order.data)))+"\n")
     except:
         thread.stop()
     finally:
