@@ -40,8 +40,8 @@ def main():
                     # logger.info(",".join(list(map(str, order.data)))+"\n")
                 if orders.__len__() > 0:
                     logger.info(getattr(orders[0], 'malformed'))
-    except:
-        pass
+    except RuntimeError:
+        logger.error(RuntimeError)
 
     thread.stop()
     logger.info("\nThread stopped!")
