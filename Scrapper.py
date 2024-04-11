@@ -27,7 +27,7 @@ thread = sniffing_thread()
 
 def main():
     try:
-        while False:
+        while True:
                 logger.info("Waiting three seconds...")
                 sleep(3)
 
@@ -39,8 +39,8 @@ def main():
                  #    logger.info(",".join(list(map(str, order.data)))+"\n")
     except Exception as e:
         logger.error(e.with_traceback())
-        thread.stop()
     finally:
+        thread.stop()
         logger.info("Thread stopped!")
 
 if __name__ == '__main__':
