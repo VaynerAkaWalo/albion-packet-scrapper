@@ -1,21 +1,46 @@
 from AlbiPy import sniffing_thread
 from AlbiPy import HEADERS
 from time import sleep
+import logging
+import sys
 
-thread = sniffing_thread()
-thread.start()
+banner = """
+  ,---.  ,--.,--.  ,--.,--------.,--.  ,--. ,-----. ,--.   ,--.  ,---.,--.   ,--. 
+ /  O  \ |  ||  ,'.|  |'--.  .--'|  ,'.|  |'  .-.  '|  |   |  | /  O  \\  `.'  /  
+|  .-.  ||  ||  |' '  |   |  |   |  |' '  ||  | |  ||  |.'.|  ||  .-.  |'.    /   
+|  | |  ||  ||  | `   |   |  |   |  | `   |'  '-'  '|   ,'.   ||  | |  |  |  |    
+`--' `--'`--'`--'  `--'   `--'   `--'  `--' `-----' '--'   '--'`--' `--'  `--'    
+                                                                                  
+Albion-packet-scrapper (v2.13.7)
+Definitly not Powered by Spring Boot
+"""
+print(banner)
 
-try:
-    while True:
-        print("Waiting three seconds...")
-        sleep(3)
+logger = logging.getLogger()
+FORMAT = '%(asctime)s %(levelname)s %(process)d [%(processName)s] %(message)s'
+logging.basicConfig(stream=sys.stdout, level=logging.INFO, format=FORMAT)
 
-        print("Fetching recorded orders...")
-        orders = thread.get_data()
 
-        print("Writing recorded orders")
-        for order in orders:
-            print(",".join(list(map(str, order.data)))+"\n")
-except KeyboardInterrupt:
-    pass
+# thread = sniffing_thread()
+# thread.start()
 
+
+def main():
+    logger.info("essa")
+    try:
+        while True:
+            logger.info("Waiting three seconds...")
+            sleep(3)
+
+            logger.info("Fetching recorded orders...")
+            # orders = thread.get_data()
+
+            logger.info("Writing recorded orders")
+            # for order in orders:
+            #     logger.info(",".join(list(map(str, order.data)))+"\n")
+    except KeyboardInterrupt:
+        pass
+
+
+if __name__ == '__main__':
+    main()
