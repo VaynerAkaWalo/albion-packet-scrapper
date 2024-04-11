@@ -36,9 +36,9 @@ def main():
                 logger.info("Fetching recorded orders...")
                 orders = thread.get_data()
 
-                logger.info("Writing recorded orders")
-                for order in orders:
-                    logger.info(",".join(list(map(str, order.data)))+"\n")
+                logger.info("Obtained %s orders", orders.__len__())
+                # for order in orders:
+                    # logger.info(",".join(list(map(str, order.data)))+"\n")
             except:
                 print("Error")
     except KeyboardInterrupt:
