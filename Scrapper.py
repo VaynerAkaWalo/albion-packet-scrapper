@@ -25,25 +25,19 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO, format=FORMAT)
 
 thread = sniffing_thread()
 
-def main():
-    try:
-        while True:
-                logger.info("Waiting three seconds...")
-                sleep(3)
 
-                logger.info("Fetching recorded orders...")
-                orders = thread.get_data()
+def scraping():
+    while True:
+        logger.info("Waiting three seconds...")
+        sleep(3)
 
-                logger.info("Obtained %s orders", orders.__len__())
-                 # for order in orders:
-                 #    logger.info(",".join(list(map(str, order.data)))+"\n")
-    except KeyboardInterrupt:
-        pass
-    except Exception as e:
-        logger.error(e.with_traceback())
-    finally:
-        thread.stop()
-        logger.info("Sniffing Thread stopped!")
+        logger.info("Fetching recorded orders...")
+        orders = thread.get_data()
+
+        logger.info("Obtained %s orders", orders.__len__())
+        # for order in orders:
+        #    logger.info(",".join(list(map(str, order.data)))+"\n")
+
 
 if __name__ == '__main__':
     start_time = timer()
@@ -51,6 +45,15 @@ if __name__ == '__main__':
     logger.info("Starting Albion-Packet-Scraper with PID %s (%s)", os.getpid(), os.getcwd())
     logger.info("Starting service [Sniffer thread]")
     logger.info("Started Albion-Packet-Scrapper in %f seconds", timer() - start_time)
-    thread.start()
-    main()
-    logger.info("Stopped Albion-Packet-Scrapper after %f", timer() - start_time)
+    try:
+        thread.start()
+        scraping()
+    except KeyboardInterrupt:
+        pass
+    except Exception as e:
+        logger.error(e.with_traceback())
+    finally:
+        thread.stop()
+        logger.info("Sniffing Thread stopped!")
+        logger.info("Stopped Albion-Packet-Scrapper after %f", timer() - start_time)
+
