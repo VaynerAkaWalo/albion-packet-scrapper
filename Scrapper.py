@@ -41,8 +41,8 @@ def main():
     except:
         pass
 
-thread.stop()
-logger.info("\nThread stopped!")
+    thread.stop()
+    logger.info("\nThread stopped!")
 
 
 if __name__ == '__main__':
