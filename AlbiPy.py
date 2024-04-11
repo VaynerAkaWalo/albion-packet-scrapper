@@ -80,7 +80,7 @@ class sniffing_thread(threading.Thread):
 
     def __init__(self, problems=PROBLEMS):
 
-        threading.Thread.__init__(self, name="Sniffing-Thread")
+        threading.Thread.__init__(self, name="Sniffer")
 
         # set problems list
         self.problems = problems
