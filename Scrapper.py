@@ -43,7 +43,7 @@ def main():
         logger.error(e.with_traceback())
     finally:
         thread.stop()
-        logger.info("Thread stopped!")
+        logger.info("Sniffing Thread stopped!")
 
 if __name__ == '__main__':
     start_time = timer()
