@@ -38,6 +38,8 @@ def main():
                 logger.info("Obtained %s orders", orders.__len__())
                 # for order in orders:
                     # logger.info(",".join(list(map(str, order.data)))+"\n")
+                if orders.__len__() > 0:
+                    logger.info(orders[0])
     except:
         pass
 
