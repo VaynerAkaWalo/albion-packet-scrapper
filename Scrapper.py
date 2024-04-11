@@ -29,7 +29,6 @@ def main():
     logger.info("essa")
     try:
         while True:
-            try:
                 logger.info("Waiting three seconds...")
                 sleep(3)
 
