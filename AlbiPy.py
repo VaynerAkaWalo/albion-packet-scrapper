@@ -5,7 +5,7 @@ import platform
 from datetime import datetime
 import logging
 
-logger = logging.getLogger('Sniffing Thread')
+logger = logging.getLogger()
 FORMAT = '%(asctime)s %(levelname)s %(process)d [%(threadName)s] %(message)s'
 
 PROBLEMS = ["'", "$", "QH", "?8", "H@", "ZP"]
@@ -80,7 +80,7 @@ class sniffing_thread(threading.Thread):
 
     def __init__(self, problems=PROBLEMS):
 
-        threading.Thread.__init__(self, name="Sniffing Thread")
+        threading.Thread.__init__(self, name="Sniffing-Thread")
 
         # set problems list
         self.problems = problems

@@ -6,6 +6,7 @@ from time import sleep
 import logging
 import sys
 import os
+import threading
 
 banner = """
   ,---.  ,--.,--.  ,--.,--------.,--.  ,--. ,-----. ,--.   ,--.  ,---. ,--. ,--. 
@@ -18,7 +19,8 @@ Albion-packet-scraper (v2.13.7)
 Definitely not Powered by Spring Boot
 """
 
-logger = logging.getLogger("Scrapper")
+threading.current_thread().name='Albion-Packet-Scrapper'
+logger = logging.getLogger()
 FORMAT = '%(asctime)s %(levelname)s %(process)d [%(threadName)s] %(message)s'
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format=FORMAT)
 
