@@ -144,6 +144,8 @@ class sniffing_thread(threading.Thread):
         """ Parse the data currently collected by the thread"""
         self.parsed = []
         self.malformed = []
+        if self.logs.__len__() == 0:
+            return
         if not self.logs[0]:
             self.logs.pop(0)
         for i, log in enumerate(self.logs):
