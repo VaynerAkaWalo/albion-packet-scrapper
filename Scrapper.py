@@ -39,7 +39,7 @@ def main():
                 # for order in orders:
                     # logger.info(",".join(list(map(str, order.data)))+"\n")
                 if orders.__len__() > 0:
-                    logger.info(getattr(orders[0], 'malformed'))
+                    logger.info(str(orders))
     except RuntimeError:
         logger.error(RuntimeError)
 
