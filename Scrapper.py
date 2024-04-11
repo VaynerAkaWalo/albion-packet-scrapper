@@ -37,7 +37,8 @@ def main():
                 logger.info("Obtained %s orders", orders.__len__())
                  # for order in orders:
                  #    logger.info(",".join(list(map(str, order.data)))+"\n")
-    except:
+    except Exception as e:
+        logger.error(e.with_traceback())
         thread.stop()
     finally:
         logger.info("Thread stopped!")
