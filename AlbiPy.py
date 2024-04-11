@@ -3,6 +3,10 @@ import json
 import threading
 import platform
 from datetime import datetime
+import logging
+
+logger = logging.getLogger('Sniffing Thread')
+FORMAT = '%(asctime)s %(levelname)s %(process)d [%(processName)s] %(message)s'
 
 PROBLEMS = ["'", "$", "QH", "?8", "H@", "ZP"]
 HEADERS = ["Id", "UnitPriceSilver", "TotalPriceSilver", "Amount", "Tier", "IsFinished",
@@ -76,7 +80,7 @@ class sniffing_thread(threading.Thread):
 
     def __init__(self, problems=PROBLEMS):
 
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, name="Sniffing Thread")
 
         # set problems list
         self.problems = problems
@@ -101,8 +105,9 @@ class sniffing_thread(threading.Thread):
             self.sniffer.bind((local_ip(), 0))
             self.sniffer.ioctl(socket.SIO_RCVALL, socket.RCVALL_ON)
 
-
     def run(self):
+
+        logger.info("Sniffing thread started")
 
         # set recording to True
         self.recording = True
@@ -138,6 +143,8 @@ class sniffing_thread(threading.Thread):
 
         if not self.last_parsed:
             self.parse_data()
+
+        logger.info("Sniffing thread stopped")
 
 
     def parse_data(self):

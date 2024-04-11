@@ -1,8 +1,11 @@
+import time
+from timeit import default_timer as timer
 from AlbiPy import sniffing_thread
 from AlbiPy import HEADERS
 from time import sleep
 import logging
 import sys
+import os
 
 banner = """
   ,---.  ,--.,--.  ,--.,--------.,--.  ,--. ,-----. ,--.   ,--.  ,---. ,--. ,--. 
@@ -11,24 +14,20 @@ banner = """
 |  | |  ||  ||  | `   |   |  |   |  | `   |'  '-'  '|   ,'.   ||  | |  |  |  |    
 `--' `--'`--'`--'  `--'   `--'   `--'  `--' `-----' '--'   '--'`--' `--'  `--'    
                                                                                   
-Albion-packet-scrapper (v2.13.7)
-Definitly not Powered by Spring Boot
+Albion-packet-scraper (v2.13.7)
+Definitely not Powered by Spring Boot
 """
-print(banner)
 
-logger = logging.getLogger()
+logger = logging.getLogger("Scrapper")
 FORMAT = '%(asctime)s %(levelname)s %(process)d [%(processName)s] %(message)s'
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format=FORMAT)
 
 
 thread = sniffing_thread()
-thread.start()
-
 
 def main():
-    logger.info("essa")
     try:
-        while True:
+        while False:
                 logger.info("Waiting three seconds...")
                 sleep(3)
 
@@ -36,13 +35,19 @@ def main():
                 orders = thread.get_data()
 
                 logger.info("Obtained %s orders", orders.__len__())
-                for order in orders:
-                    logger.info(",".join(list(map(str, order.data)))+"\n")
+                 # for order in orders:
+                 #    logger.info(",".join(list(map(str, order.data)))+"\n")
     except:
         thread.stop()
     finally:
-        logger.info("\nThread stopped!")
-
+        logger.info("Thread stopped!")
 
 if __name__ == '__main__':
+    start_time = timer()
+    print(banner)
+    logger.info("Starting Albion-Packet-Scraper with PID %s (%s)", os.getpid(), os.getcwd())
+    logger.info("Starting service [Sniffer thread]")
+    logger.info("Started Albion-Packet-Scrapper in %f seconds", timer() - start_time)
+    thread.start()
     main()
+    logger.info("Stopped Albion-Packet-Scrapper after %f", timer() - start_time)
