@@ -8,6 +8,8 @@ import sys
 import os
 import threading
 
+service_name = 'Albion-packet-scrapper'
+
 banner = """
   ,---.  ,--.,--.  ,--.,--------.,--.  ,--. ,-----. ,--.   ,--.  ,---. ,--. ,--. 
  /  O  \\ |  ||  ,'.|  |'--.  .--'|  ,'.|  |'  .-.  '|  |   |  | /  O  \\ \\ `.' /  
@@ -44,9 +46,9 @@ def scraping():
 if __name__ == '__main__':
     start_time = timer()
     print(banner)
-    logger.info("Starting Albion-Packet-Scraper with PID %s (%s)", os.getpid(), os.getcwd())
+    logger.info("Starting %s with PID %s (%s)",service_name, os.getpid(), os.getcwd())
     logger.info("Starting service [Sniffer thread]")
-    logger.info("Started Albion-Packet-Scrapper in %f seconds", timer() - start_time)
+    logger.info("Started %s in %f seconds",service_name,  timer() - start_time)
     try:
         thread.start()
         scraping()
@@ -57,5 +59,5 @@ if __name__ == '__main__':
     finally:
         thread.stop()
         thread.join()
-        logger.info("Stopped Albion-Packet-Scrapper after %f", timer() - start_time)
+        logger.info("Stopped %s after %f",service_name , timer() - start_time)
 
