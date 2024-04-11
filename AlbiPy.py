@@ -6,7 +6,7 @@ from datetime import datetime
 import logging
 
 logger = logging.getLogger('Sniffing Thread')
-FORMAT = '%(asctime)s %(levelname)s %(process)d [%(processName)s] %(message)s'
+FORMAT = '%(asctime)s %(levelname)s %(process)d [%(threadName)s] %(message)s'
 
 PROBLEMS = ["'", "$", "QH", "?8", "H@", "ZP"]
 HEADERS = ["Id", "UnitPriceSilver", "TotalPriceSilver", "Amount", "Tier", "IsFinished",

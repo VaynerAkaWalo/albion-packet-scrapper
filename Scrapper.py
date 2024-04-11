@@ -19,7 +19,7 @@ Definitely not Powered by Spring Boot
 """
 
 logger = logging.getLogger("Scrapper")
-FORMAT = '%(asctime)s %(levelname)s %(process)d [%(processName)s] %(message)s'
+FORMAT = '%(asctime)s %(levelname)s %(process)d [%(threadName)s] %(message)s'
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format=FORMAT)
 
 
