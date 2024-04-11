@@ -41,9 +41,9 @@ def scraping():
 if __name__ == '__main__':
     start_time = timer()
     print(banner)
-    logger.info("Starting %s with PID %s (%s)",service_name, os.getpid(), os.getcwd())
+    logger.info("Starting %s with PID %s (%s)", service_name, os.getpid(), os.getcwd())
     logger.info("Starting service [Sniffer thread]")
-    logger.info("Started %s in %f seconds",service_name,  timer() - start_time)
+    logger.info("Started %s in %f seconds", service_name,  timer() - start_time)
     try:
         thread.start()
         scraping()
@@ -55,5 +55,5 @@ if __name__ == '__main__':
         thread.stop()
         thread.join()
         logger.info("Sniffing thread stopped")
-        logger.info("Stopped %s after %f seconds",service_name , timer() - start_time)
+        logger.info("Stopped %s after %f seconds", service_name, timer() - start_time)
 
