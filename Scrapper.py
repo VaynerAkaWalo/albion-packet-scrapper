@@ -1,7 +1,5 @@
-import time
 from timeit import default_timer as timer
 from AlbiPy import sniffing_thread
-from AlbiPy import HEADERS
 from time import sleep
 import logging
 import sys
