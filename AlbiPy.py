@@ -175,7 +175,7 @@ class sniffing_thread(threading.Thread):
 
         marketdata = sniffer_data(self.logs, self.parsed, self.malformed)
         logger.info("Parsed %d orders", self.parsed.__len__())
-        self.logs = []
+        self.logs = [""]
         self.parsed = []
         self.malformed = []
         return marketdata
