@@ -5,7 +5,7 @@ import platform
 from datetime import datetime
 import logging
 
-logger = logging.getLogger('Sniffing Thread')
+logger = logging.getLogger()
 FORMAT = '%(asctime)s %(levelname)s %(process)d [%(processName)s] %(message)s'
 
 PROBLEMS = ["'", "$", "QH", "?8", "H@", "ZP"]
