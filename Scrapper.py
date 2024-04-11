@@ -21,8 +21,8 @@ FORMAT = '%(asctime)s %(levelname)s %(process)d [%(processName)s] %(message)s'
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format=FORMAT)
 
 
-# thread = sniffing_thread()
-# thread.start()
+thread = sniffing_thread()
+thread.start()
 
 
 def main():
@@ -33,11 +33,11 @@ def main():
             sleep(3)
 
             logger.info("Fetching recorded orders...")
-            # orders = thread.get_data()
+            orders = thread.get_data()
 
             logger.info("Writing recorded orders")
-            # for order in orders:
-            #     logger.info(",".join(list(map(str, order.data)))+"\n")
+            for order in orders:
+                logger.info(",".join(list(map(str, order.data)))+"\n")
     except KeyboardInterrupt:
         pass
 
