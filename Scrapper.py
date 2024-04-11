@@ -29,15 +29,18 @@ def main():
     logger.info("essa")
     try:
         while True:
-            logger.info("Waiting three seconds...")
-            sleep(3)
+            try:
+                logger.info("Waiting three seconds...")
+                sleep(3)
 
-            logger.info("Fetching recorded orders...")
-            orders = thread.get_data()
+                logger.info("Fetching recorded orders...")
+                orders = thread.get_data()
 
-            logger.info("Writing recorded orders")
-            for order in orders:
-                logger.info(",".join(list(map(str, order.data)))+"\n")
+                logger.info("Writing recorded orders")
+                for order in orders:
+                    logger.info(",".join(list(map(str, order.data)))+"\n")
+            except:
+                print("Error")
     except KeyboardInterrupt:
         pass
 
