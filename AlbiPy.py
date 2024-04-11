@@ -144,9 +144,6 @@ class sniffing_thread(threading.Thread):
         if not self.last_parsed:
             self.parse_data()
 
-        logger.info("Sniffing thread stopped")
-
-
     def parse_data(self):
         """ Parse the data currently collected by the thread"""
         self.parsed = []

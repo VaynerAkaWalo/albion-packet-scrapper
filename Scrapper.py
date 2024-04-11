@@ -54,5 +54,6 @@ if __name__ == '__main__':
     finally:
         thread.stop()
         thread.join()
-        logger.info("Stopped %s after %f",service_name , timer() - start_time)
+        logger.info("Sniffing thread stopped")
+        logger.info("Stopped %s after %f seconds",service_name , timer() - start_time)
 
