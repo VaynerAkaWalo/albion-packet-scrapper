@@ -38,13 +38,10 @@ def main():
                 logger.info("Obtained %s orders", orders.__len__())
                 # for order in orders:
                     # logger.info(",".join(list(map(str, order.data)))+"\n")
-                if orders.__len__() > 0:
-                    logger.info(str(orders))
-    except RuntimeError:
-        logger.error(RuntimeError)
-
-    thread.stop()
-    logger.info("\nThread stopped!")
+    except:
+        thread.stop()
+    finally:
+        logger.info("\nThread stopped!")
 
 
 if __name__ == '__main__':

@@ -163,9 +163,13 @@ class sniffing_thread(threading.Thread):
         # parse logs, record malformed logs, and count total logs and malformed logs
         if not self.last_parsed:
             self.parse_data()
-        
+
+        marketdata = sniffer_data(self.logs, self.parsed, self.malformed)
+        self.logs = []
+        self.parsed = []
+        self.malformed = []
         # return parsed data
-        return sniffer_data(self.logs, self.parsed, self.malformed)
+        return marketdata
 
 
     def stop(self):
