@@ -19,7 +19,7 @@ Albion-packet-scraper (v2.13.7)
 Definitely not Powered by Spring Boot
 """
 
-threading.current_thread().name='Albion-Packet-Scrapper'
+threading.current_thread().name='Main-Thread    '
 logger = logging.getLogger()
 FORMAT = '%(asctime)s %(levelname)s %(process)d [%(threadName)s] %(message)s'
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format=FORMAT)
