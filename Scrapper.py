@@ -30,8 +30,10 @@ thread = sniffing_thread()
 
 def scraping():
     while True:
-        sleep(3)
         orders = thread.get_data()
+        if(orders.logs.__len__ == 0):
+            sleep(3)
+            continue
 
         print(orders.parsed_orders())
 
