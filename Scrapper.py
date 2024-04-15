@@ -33,7 +33,7 @@ def scraping():
         sleep(3)
         orders = thread.get_data()
 
-        print(orders.parsed())
+        print(orders.parsed_orders())
 
         #    logger.info(",".join(list(map(str, order.data)))+"\n")
 

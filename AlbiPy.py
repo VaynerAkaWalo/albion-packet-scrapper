@@ -74,7 +74,7 @@ class sniffer_data:
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
         return json.dumps({"logs": self.logs, "parsed": parsed, "malformed": self.malformed})
 
-    def parsed(self):
+    def parsed_orders(self):
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
         return json.dumps(parsed)
 
