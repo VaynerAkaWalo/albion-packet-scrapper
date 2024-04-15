@@ -74,6 +74,10 @@ class sniffer_data:
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
         return json.dumps({"logs": self.logs, "parsed": parsed, "malformed": self.malformed})
 
+    def parsed(self):
+        parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
+        return json.dumps(parsed)
+
 
 class sniffing_thread(threading.Thread):
     """ Sniffing thread class"""
