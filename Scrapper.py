@@ -1,3 +1,4 @@
+import json
 from timeit import default_timer as timer
 from AlbiPy import sniffing_thread
 from time import sleep
@@ -43,7 +44,7 @@ def scraping():
 
 
 def sendOrders(orders):
-    print(requests.post(URL, json=orders))
+    print(requests.post(URL, json=json.loads(orders)))
 
 
 if __name__ == '__main__':
