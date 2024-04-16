@@ -44,7 +44,7 @@ def scraping():
 
 
 def sendOrders(orders):
-    requests.post(URL = URL, data=orders)
+    print(requests.post(URL=URL, data=orders))
 
 
 if __name__ == '__main__':
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         pass
     except Exception as e:
-        logger.error(e.__cause__)
+        logger.error(e.__traceback__)
     finally:
         thread.stop()
         thread.join()
