@@ -5,8 +5,10 @@ import logging
 import sys
 import os
 import threading
+import requests
 
 service_name = 'Albion-packet-scrapper'
+URL = "https://blamedevs.com:8443/albion-rmt-backend/api/v1/marketdata"
 
 banner = """
   ,---.  ,--.,--.  ,--.,--------.,--.  ,--. ,-----. ,--.   ,--.  ,---. ,--. ,--. 
@@ -35,9 +37,13 @@ def scraping():
             sleep(3)
             continue
 
-        print(orders.parsed_orders())
+        sendOrders(orders.parsed_orders())
 
         #    logger.info(",".join(list(map(str, order.data)))+"\n")
+
+
+def sendOrders(orders):
+    requests.post(URL = URL, data=orders)
 
 
 if __name__ == '__main__':
