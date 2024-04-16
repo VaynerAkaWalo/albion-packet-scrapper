@@ -37,14 +37,13 @@ def scraping():
             sleep(3)
             continue
 
-        print(orders.parsed_orders())
         sendOrders(orders.parsed_orders())
 
         #    logger.info(",".join(list(map(str, order.data)))+"\n")
 
 
 def sendOrders(orders):
-    print(requests.post(URL=URL, data=orders))
+    print(requests.post(URL=URL, json=orders))
 
 
 if __name__ == '__main__':
