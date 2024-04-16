@@ -46,7 +46,8 @@ def scraping():
 def sendOrders(orders):
     response = requests.post(URL, json=json.loads(orders))
     json_response = response.json()
-    logger.info("Successfully posted %s orders, %s failed", json_response['Succeed'], json_response['failed'])
+    logger.info(json_response)
+    # logger.info("Successfully posted %s orders, %s failed", json_response['Succeed'], json_response['failed'])
 
 
 if __name__ == '__main__':
