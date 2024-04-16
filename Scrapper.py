@@ -43,7 +43,7 @@ def scraping():
 
 
 def sendOrders(orders):
-    print(requests.post(URL=URL, json=orders))
+    print(requests.post(URL, orders))
 
 
 if __name__ == '__main__':
