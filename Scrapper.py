@@ -58,7 +58,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         pass
     except Exception as e:
-        logger.error(e.with_traceback())
+        logger.error(e.__cause__)
     finally:
         thread.stop()
         thread.join()
