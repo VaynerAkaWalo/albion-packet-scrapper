@@ -7,6 +7,7 @@ import sys
 import os
 import threading
 import requests
+import traceback
 
 service_name = 'Albion-packet-scrapper'
 URL = "https://blamedevs.com:8443/albion-rmt-backend/api/v1/marketdata"
@@ -32,25 +33,30 @@ thread = sniffing_thread()
 
 
 def scraping():
+    orders = []
     while True:
         try:
-            orders = thread.get_data()
-            if(orders.logs.__len__() == 0):
-                sleep(3)
-                continue
+            orders = (thread.get_data().parsed_orders())
+        except IndexError:
+            orders = []
 
-            sendOrders(orders.parsed_orders())
-        except:
-            pass
+        if orders.__len__() > 100:
+            sendOrders(orders)
+            orders = []
+
+        sleep(5)
 
 
 def sendOrders(orders):
-    response = requests.post(URL, json=json.loads(orders))
-    if response.status_code == 201:
-        json_response = response.json()
-        logger.info("Successfully posted %s orders, %s failed", json_response['Succeed'].__len__(), json_response['Failed'].__len__())
-    else:
-        logger.error("Failed to post orders, status code %d", response.status_code)
+    try:
+        response = requests.post(URL, json=json.loads(orders))
+        if response.status_code == 201:
+            json_response = response.json()
+            logger.info("Successfully posted %s orders, %s failed", json_response['Succeed'].__len__(), json_response.get('failed', []).__len__())
+        else:
+            logger.error("Failed to post orders, status code %d", response.status_code)
+    except RuntimeError:
+        pass
 
 
 if __name__ == '__main__':
@@ -65,10 +71,10 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         pass
     except Exception as e:
-        logger.error(e.__traceback__)
+        logger.error(e.__str__())
+        print(traceback.format_exc())
     finally:
         thread.stop()
         thread.join()
         logger.info("Sniffing thread stopped")
         logger.info("Stopped %s after %f seconds", service_name, timer() - start_time)
-
