@@ -9,6 +9,8 @@ import threading
 import requests
 import traceback
 
+from requests.exceptions import InvalidJSONError
+
 service_name = 'Albion-packet-scrapper'
 URL = "https://blamedevs.com:8443/albion-rmt-backend/api/v1/marketdata"
 
@@ -55,7 +57,7 @@ def sendOrders(orders):
             logger.info("Successfully posted %s orders, %s failed", json_response['Succeed'].__len__(), json_response.get('failed', []).__len__())
         else:
             logger.error("Failed to post orders, status code %d", response.status_code)
-    except RuntimeError:
+    except InvalidJSONError:
         pass
 
 
