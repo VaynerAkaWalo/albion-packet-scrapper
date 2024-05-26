@@ -38,7 +38,7 @@ def scraping():
     orders = []
     while True:
         try:
-            orders = (thread.get_data().parsed_orders())
+            orders.append((thread.get_data().parsed_orders()))
             if sys.argv[1] == "debug" and orders.__len__():
                 logger.info(str(orders).replace("\'", "\"").replace("False", "false").replace("None", "null"))
         except IndexError:
