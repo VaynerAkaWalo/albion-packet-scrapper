@@ -39,12 +39,14 @@ def scraping():
     while True:
         try:
             parsed_orders = (thread.get_data().parsed_orders())
-            orders.append(parsed_orders)
+            logger.info(parsed_orders.__len__())
             if sys.argv[1] == "debug" and orders.__len__():
                 logger.info(str(orders).replace("\'", "\"").replace("False", "false").replace("None", "null"))
-        except IndexError:
-            logger.error("Index error")
+        except IndexError as e:
+            logger.error("Index error %s", e)
             orders = []
+
+        logger.info(orders.__len__())
 
         if orders.__len__() > 100:
             sendOrders(orders)
