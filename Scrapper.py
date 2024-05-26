@@ -40,7 +40,7 @@ def scraping():
         try:
             orders += thread.get_data().parsed_orders()
 
-            if sys.argv[1] == "debug" and orders.__len__():
+            if sys.argv.__len__() > 1 and sys.argv[1] == "debug" and orders.__len__():
                 logger.info(str(orders).replace("\'", "\"").replace("False", "false").replace("None", "null"))
         except IndexError as exc:
             logger.error("Index error %s", exc.__str__())
