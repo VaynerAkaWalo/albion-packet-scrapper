@@ -38,8 +38,7 @@ def scraping():
     orders = []
     while True:
         try:
-            parsed_orders = thread.get_data().parsed_orders()
-            orders.append(parsed_orders)
+            orders += thread.get_data().parsed_orders()
 
             # if sys.argv[1] == "debug" and orders.__len__():
             #     logger.info(str(orders).replace("\'", "\"").replace("False", "false").replace("None", "null"))
