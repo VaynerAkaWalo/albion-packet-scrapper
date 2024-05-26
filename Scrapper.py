@@ -39,6 +39,8 @@ def scraping():
     while True:
         try:
             orders = (thread.get_data().parsed_orders())
+            if sys.argv[1] == "debug":
+                logger.info(json.loads(orders).replace(";", "\"\"").replace("False", "false").replace("None", "null"))
         except IndexError:
             orders = []
 

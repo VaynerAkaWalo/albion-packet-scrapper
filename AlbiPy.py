@@ -4,6 +4,7 @@ import threading
 import platform
 from datetime import datetime
 import logging
+import uuid
 
 logger = logging.getLogger()
 FORMAT = '%(asctime)s %(levelname)s %(process)d [%(threadName)s] %(message)s'
@@ -59,10 +60,11 @@ class datapoint:
 class sniffer_data:
     """ Organized sniffed market data"""
 
-    def __init__(self, logs, parsed, malformed):
+    def __init__(self, logs, parsed, malformed, uuid):
         self.logs = logs[:]
         self.parsed = parsed[:]
         self.malformed = malformed[:]
+        self.uuid = uuid
 
     def __getitem__(self, i):
         return self.parsed[i]
@@ -76,6 +78,7 @@ class sniffer_data:
 
     def parsed_orders(self):
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
+        parsed.append({"sessionId": uuid})
         return json.dumps(parsed)
 
 
@@ -98,6 +101,7 @@ class sniffing_thread(threading.Thread):
         self.last_parsed = True
         # log list with placeholder entry
         self.logs = [""]
+        self.uuid = uuid.uuid4()
 
         # initialize socket object
         if platform.system() != "Windows":
@@ -112,6 +116,7 @@ class sniffing_thread(threading.Thread):
     def run(self):
 
         logger.info("Sniffing thread started")
+        logger.info("Session identifier: " + uuid)
 
         # set recording to True
         self.recording = True
@@ -141,7 +146,7 @@ class sniffing_thread(threading.Thread):
                 # otherwise, this chunk is assumed to be a continuation of the last chunk and is simply concatenated to the end
                 elif self.logs:
                     self.logs[-1] += chunk
-            
+
             # set last parsed to false
             self.last_parsed = False
 
@@ -168,13 +173,13 @@ class sniffing_thread(threading.Thread):
         """ Get the latest data from sniffing thread"""
         # if no logs have been recorded
         if self.logs == [""]:
-            return sniffer_data([], [], [])
+            return sniffer_data([], [], [], uuid)
 
         # parse logs, record malformed logs, and count total logs and malformed logs
         if not self.last_parsed:
             self.parse_data()
 
-        marketdata = sniffer_data(self.logs, self.parsed, self.malformed)
+        marketdata = sniffer_data(self.logs, self.parsed, self.malformed, uuid)
         logger.info("Parsed %d orders, %d malformed", self.parsed.__len__(), self.malformed.__len__())
         self.logs = [""]
         self.parsed = []
