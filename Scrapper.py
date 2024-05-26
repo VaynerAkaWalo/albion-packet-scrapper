@@ -42,7 +42,10 @@ def scraping():
             if sys.argv[1] == "debug" and orders.__len__():
                 logger.info(str(orders).replace("\'", "\"").replace("False", "false").replace("None", "null"))
         except IndexError:
+            logger.error("Index error")
             orders = []
+
+        logger.info(orders.__len__())
 
         if orders.__len__() > 100:
             sendOrders(orders)
