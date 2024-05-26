@@ -40,7 +40,7 @@ def scraping():
         try:
             orders = (thread.get_data().parsed_orders())
             if sys.argv[1] == "debug" and orders.__len__():
-                logger.info(str(json.loads(orders)))
+                logger.info(str(orders).replace("\'", "\""))
         except IndexError:
             orders = []
 
