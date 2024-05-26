@@ -44,6 +44,8 @@ def scraping():
         except IndexError:
             orders = []
 
+        logger.info(orders.__len__)
+
         if orders.__len__() > 100:
             sendOrders(orders)
             orders = []
