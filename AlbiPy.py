@@ -78,7 +78,7 @@ class sniffer_data:
 
     def parsed_orders(self):
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
-        parsed.append({"sessionId": self.session_id})
+        parsed.append({"sessionId": str(self.session_id)})
         return json.dumps(parsed)
 
 
@@ -116,7 +116,7 @@ class sniffing_thread(threading.Thread):
     def run(self):
 
         logger.info("Sniffing thread started")
-        logger.info("Session identifier: " + self.session_id)
+        logger.info("Session identifier: " + str(self.session_id))
 
         # set recording to True
         self.recording = True
