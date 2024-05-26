@@ -47,6 +47,8 @@ def scraping():
             logger.error("Index error %s", exc.__str__())
             orders = []
 
+        logger.info(orders.__len__())
+
         if orders.__len__() > 100:
             sendOrders(orders)
             orders = []
