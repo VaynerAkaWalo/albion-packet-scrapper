@@ -27,7 +27,7 @@ def local_ip():
 class datapoint:
     """ Single market datapoint including all available data from the game's api"""
 
-    def __init__(self, data):
+    def __init__(self, data, session_id):
         # data attribute
         self.data = data[:]
         # correct silver prices
@@ -55,6 +55,7 @@ class datapoint:
         self.QualityLevel = data[16]
         self.Expires = data[17]
         self.ReferenceId = data[18]
+        self.sessionId = session_id
 
 
 class sniffer_data:
@@ -77,9 +78,6 @@ class sniffer_data:
         return json.dumps({"logs": self.logs, "parsed": parsed, "malformed": self.malformed})
 
     def parsed_orders(self):
-        for order in self.parsed:
-            order["sessionId"] = self.session_id
-
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
         return json.dumps(parsed)
 
@@ -165,7 +163,7 @@ class sniffing_thread(threading.Thread):
             self.logs.pop(0)
         for i, log in enumerate(self.logs):
             try:
-                self.parsed.append(datapoint(list(json.loads(log).values())))
+                self.parsed.append(datapoint(list(json.loads(log).values())), self.session_id)
             except (json.decoder.JSONDecodeError, ValueError, TypeError, IndexError):
                 self.malformed.append(self.logs[i])
         self.last_parsed = True
