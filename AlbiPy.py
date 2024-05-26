@@ -55,8 +55,7 @@ class datapoint:
         self.QualityLevel = data[16]
         self.Expires = data[17]
         self.ReferenceId = data[18]
-        self.sessionId = session_id
-
+        data[19] = session_id
 
 class sniffer_data:
     """ Organized sniffed market data"""
