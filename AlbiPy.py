@@ -60,11 +60,11 @@ class datapoint:
 class sniffer_data:
     """ Organized sniffed market data"""
 
-    def __init__(self, logs, parsed, malformed, uuid):
+    def __init__(self, logs, parsed, malformed, session_id):
         self.logs = logs[:]
         self.parsed = parsed[:]
         self.malformed = malformed[:]
-        self.uuid = uuid
+        self.session_id = session_id
 
     def __getitem__(self, i):
         return self.parsed[i]
@@ -78,7 +78,7 @@ class sniffer_data:
 
     def parsed_orders(self):
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
-        parsed.append({"sessionId": uuid})
+        parsed.append({"sessionId": self.session_id})
         return json.dumps(parsed)
 
 
@@ -101,7 +101,7 @@ class sniffing_thread(threading.Thread):
         self.last_parsed = True
         # log list with placeholder entry
         self.logs = [""]
-        self.uuid = uuid.uuid4()
+        self.session_id = uuid.uuid4()
 
         # initialize socket object
         if platform.system() != "Windows":
@@ -116,7 +116,7 @@ class sniffing_thread(threading.Thread):
     def run(self):
 
         logger.info("Sniffing thread started")
-        logger.info("Session identifier: " + uuid)
+        logger.info("Session identifier: " + self.session_id)
 
         # set recording to True
         self.recording = True
@@ -173,13 +173,13 @@ class sniffing_thread(threading.Thread):
         """ Get the latest data from sniffing thread"""
         # if no logs have been recorded
         if self.logs == [""]:
-            return sniffer_data([], [], [], uuid)
+            return sniffer_data([], [], [], self.session_id)
 
         # parse logs, record malformed logs, and count total logs and malformed logs
         if not self.last_parsed:
             self.parse_data()
 
-        marketdata = sniffer_data(self.logs, self.parsed, self.malformed, uuid)
+        marketdata = sniffer_data(self.logs, self.parsed, self.malformed, self.session_id)
         logger.info("Parsed %d orders, %d malformed", self.parsed.__len__(), self.malformed.__len__())
         self.logs = [""]
         self.parsed = []
