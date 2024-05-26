@@ -59,7 +59,8 @@ def sendOrders(orders):
             logger.info("Successfully posted %s orders, %s failed", json_response['Succeed'].__len__(), json_response.get('failed', []).__len__())
         else:
             logger.error("Failed to post orders, status code %d", response.status_code)
-    except InvalidJSONError:
+    except InvalidJSONError as e:
+        logger.error("Invalid json error %s", e)
         pass
 
 
