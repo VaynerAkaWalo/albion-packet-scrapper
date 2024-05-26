@@ -78,7 +78,8 @@ class sniffer_data:
 
     def parsed_orders(self):
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
-        parsed.append({"sessionId": str(self.session_id)})
+        if len(parsed):
+            parsed.append({"sessionId": str(self.session_id)})
         return json.dumps(parsed)
 
 
