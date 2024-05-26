@@ -43,7 +43,7 @@ def scraping():
             if sys.argv[1] == "debug" and orders.__len__():
                 logger.info(str(orders).replace("\'", "\"").replace("False", "false").replace("None", "null"))
         except IndexError as e:
-            logger.error("Index error %s", e)
+            logger.error("Index error %s", e.__str__())
             orders = []
 
         logger.info(orders.__len__())
