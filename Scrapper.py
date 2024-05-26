@@ -40,7 +40,7 @@ def scraping():
         try:
             orders = (thread.get_data().parsed_orders())
             if sys.argv[1] == "debug":
-                logger.info(str(json.loads(orders)).replace(";", "\"\"").replace("False", "false").replace("None", "null"))
+                logger.info(str(json.loads(orders)))
         except IndexError:
             orders = []
 
