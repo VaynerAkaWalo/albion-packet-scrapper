@@ -13,7 +13,7 @@ PROBLEMS = ["'", "$", "QH", "?8", "H@", "ZP"]
 HEADERS = ["Id", "UnitPriceSilver", "TotalPriceSilver", "Amount", "Tier", "IsFinished",
            "AuctionType", "HasBuyerFetched", "HasSellerFetched", "SellerCharacterId",
            "SellerName", "BuyerCharacterId", "BuyerName", "ItemTypeId", "ItemGroupTypeId",
-           "EnchantmentLevel", "QualityLevel", "Expires", "ReferenceId"]
+           "EnchantmentLevel", "QualityLevel", "Expires", "ReferenceId", "sessionId"]
 
 
 def local_ip():
@@ -77,9 +77,10 @@ class sniffer_data:
         return json.dumps({"logs": self.logs, "parsed": parsed, "malformed": self.malformed})
 
     def parsed_orders(self):
+        for order in self.parsed:
+            order["sessionId"] = self.session_id
+
         parsed = [{HEADERS[j]: attribute for j, attribute in enumerate(i.data)} for i in self.parsed]
-        if len(parsed):
-            parsed.append({"sessionId": str(self.session_id)})
         return json.dumps(parsed)
 
 
