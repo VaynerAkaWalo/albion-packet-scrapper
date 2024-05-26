@@ -39,12 +39,10 @@ def scraping():
     while True:
         try:
             orders = (thread.get_data().parsed_orders())
-            if sys.argv[1] == "debug" and orders.__len__:
+            if sys.argv[1] == "debug" and orders.__len__():
                 logger.info(str(json.loads(orders)))
         except IndexError:
             orders = []
-
-        logger.info(orders.__len__)
 
         if orders.__len__() > 100:
             sendOrders(orders)
@@ -55,7 +53,7 @@ def scraping():
 
 def sendOrders(orders):
     try:
-        response = requests.post(URL, json=json.loads(orders))
+        response = requests.post(URL, json=orders)
         if response.status_code == 201:
             json_response = response.json()
             logger.info("Successfully posted %s orders, %s failed", json_response['Succeed'].__len__(), json_response.get('failed', []).__len__())
